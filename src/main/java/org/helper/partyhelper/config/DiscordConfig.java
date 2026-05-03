@@ -15,12 +15,17 @@ public class DiscordConfig {
     private String discordToken;
 
     @Bean
-    public JDA jda (){
+    public JDA jda () {
 
-        return JDABuilder.createLight(discordToken, GatewayIntent.GUILD_MEMBERS,
-                GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT).build();
+        try{
+            return JDABuilder.createLight(discordToken, GatewayIntent.GUILD_MEMBERS,
+                    GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT).build().awaitReady();
+
+        }catch(InterruptedException e){
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Error fatal al conectar el bot a Discord", e);
+        }
+
     }
-
-
 
 }
