@@ -5,15 +5,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
-@Table
+@Table (name = "players", indexes = @Index(name = "idx_player_name", columnList = "playerName"))
 @Getter @Setter @NoArgsConstructor
 public class Player {
     @Id
-    private String discordId;
-    private String name;
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
+    @Column(nullable = false)
+    private String playerName;
+
+    @Column(nullable = true)
+    private String discordId;
+
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true )
     private List<WarRecord> records;
 
 }
