@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/bdostats}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:password}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+discord:
+  token: ${DISCORD_TOKEN}
