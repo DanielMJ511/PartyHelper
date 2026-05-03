@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+### OpenCode ###
+.opencode/
+memory/
+AGENTS.local.md
+AGENTS.md

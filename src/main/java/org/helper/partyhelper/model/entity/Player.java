@@ -15,4 +15,5 @@ public class Player {
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
     private List<WarRecord> records;
+
 }
