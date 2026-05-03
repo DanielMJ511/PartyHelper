@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.EventListener;
+import java.util.List;
+
 @Configuration
 
 public class DiscordConfig {
@@ -15,11 +18,18 @@ public class DiscordConfig {
     private String discordToken;
 
     @Bean
-    public JDA jda () {
+    public JDA jda (List<EventListener> listeners) {
 
         try{
-            return JDABuilder.createLight(discordToken, GatewayIntent.GUILD_MEMBERS,
-                    GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT).build().awaitReady();
+            JDABuilder builder =  JDABuilder.createLight(discordToken, GatewayIntent.GUILD_MEMBERS,
+                    GatewayIntent.GUILD_MESSAGES,
+                    GatewayIntent.MESSAGE_CONTENT);
+
+            for(EventListener listener : listeners){
+                builder.addEventListeners(listener);
+            }
+
+            return builder.build().awaitReady();
 
         }catch(InterruptedException e){
             Thread.currentThread().interrupt();
