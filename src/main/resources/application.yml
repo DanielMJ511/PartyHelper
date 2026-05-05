@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/bdostats}
-    username: ${DB_USER:postgres}
-    password: ${DB_PASS:password}
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
 
   jpa:
     hibernate:
