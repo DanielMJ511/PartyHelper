@@ -1,10 +1,7 @@
 package org.helper.partyhelper.model.entity;
 
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +13,9 @@ import java.util.Date;
 
 public class WarRecord {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Date date;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Player player;
