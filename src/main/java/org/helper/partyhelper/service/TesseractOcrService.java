@@ -13,13 +13,21 @@ import java.io.InputStream;
 @Component
 public class TesseractOcrService implements OcrService{
 
-    Tesseract tesseract = new Tesseract();
-    @Override
-    public String extractText(InputStream input) throws IOException, TesseractException {
-        BufferedImage bufferedImage = ImageIO.read(input);
-        tesseract.setLanguage("eng+spa");
-        return tesseract.doOCR(bufferedImage);
+    private final Tesseract tesseract;
+
+    public TesseractOcrService(Tesseract tesseract) {
+        this.tesseract = tesseract;
     }
 
+    @Override
+    public String extractText(InputStream input) {
+        try{
+            BufferedImage bufferedImage = ImageIO.read(input);
+            return tesseract.doOCR(bufferedImage);
+        }catch(IOException | TesseractException e){
+            throw new RuntimeException("OCR extraction failed", e);
+
+        }
+    }
 
 }
